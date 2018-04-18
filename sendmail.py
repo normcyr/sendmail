@@ -2,7 +2,7 @@ import yaml, smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-def load_config(config_file):
+def load_config(config_file, text_file):
 
     with open(config_file, 'r') as ymlfile:
         cfg = yaml.load(ymlfile)
@@ -15,7 +15,10 @@ def load_config(config_file):
     to_address = cfg['addresses']['to_address']
 
     subject = cfg['msg_info']['subject']
-    announcement = cfg['msg_info']['announcement']
+
+    with open(text_file, 'r') as txtfile:
+        announcement = txtfile.read()
+        print(announcement)
 
     return(username, password, smtp_server, from_address, to_address, subject, announcement)
 
@@ -47,11 +50,12 @@ def send_message(username, password, smtp_server, msg, from_address, to_address)
 def main():
 
     config_file = 'config.yml'
+    text_file = 'announcement.txt'
 
-    username, password, smtp_server, from_address, to_address, subject, announcement = load_config(config_file)
+    username, password, smtp_server, from_address, to_address, subject, announcement = load_config(config_file, text_file)
     msg = build_message(announcement, subject, from_address, to_address)
 
-    send_message(username, password, smtp_server, msg, from_address, to_address)
+    #send_message(username, password, smtp_server, msg, from_address, to_address)
 
 if __name__ == '__main__':
     main()

@@ -7,4 +7,3 @@ addresses:
     to_address: bobleponge@example.com
 msg_info:
     subject: Test message
-    announcement: Hello World!
