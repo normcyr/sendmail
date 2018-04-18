@@ -55,7 +55,7 @@ def main():
     username, password, smtp_server, from_address, to_address, subject, announcement = load_config(config_file, text_file)
     msg = build_message(announcement, subject, from_address, to_address)
 
-    #send_message(username, password, smtp_server, msg, from_address, to_address)
+    send_message(username, password, smtp_server, msg, from_address, to_address)
 
 if __name__ == '__main__':
     main()
