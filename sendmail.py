@@ -18,7 +18,6 @@ def load_config(config_file, text_file):
 
     with open(text_file, 'r') as txtfile:
         announcement = txtfile.read()
-        print(announcement)
 
     return(username, password, smtp_server, from_address, to_address, subject, announcement)
 
