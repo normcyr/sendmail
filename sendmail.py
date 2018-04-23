@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import yaml, smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
