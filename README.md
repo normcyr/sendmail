@@ -23,13 +23,31 @@ mv config.yml.example config.yml
 mv announcement.txt.example announcement.txt
 ```
 
-Edit the config.yml file to suit your needs. You may want to use your email address for both `from_address` and `to_address` addresses in order to test it first.
+Edit the config.yml file to suit your needs.
+
 
 ```bash
 nano config.yml
 ```
 
-Edit the announcement.txt file to suit your needs. Replace the text for the message you want to send
+You may want to use your email address for both `from_address` and `to_address` addresses in order to test it first.
+
+```yaml
+server:
+    address: smtp.example.com
+    port: 587
+    authentification: True
+login:
+    username: bobleponge@example.com
+    password: 1234567890123456
+addresses:
+    from_address: bobleponge@example.com
+    to_address: bobleponge@example.com
+msg_info:
+    subject: Test message
+```
+
+Edit the announcement.txt file to suit your needs. Replace the text for the message you want to send.
 
 ```bash
 nano announcement.txt
