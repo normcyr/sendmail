@@ -1,4 +1,7 @@
-server: smtp.example.com
+server:
+    address: smtp.example.com
+    port: 587
+    authentification: True
 login:
     username: bobleponge@example.com
     password: 1234567890123456
