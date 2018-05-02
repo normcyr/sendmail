@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
-import yaml, smtplib
+import yaml, smtplib, sys
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-def load_config(config_file, text_file):
+def load_config(config_file, text_file, address_book):
 
     with open(config_file, 'r') as ymlfile:
         cfg = yaml.load(ymlfile)
@@ -14,11 +14,18 @@ def load_config(config_file, text_file):
     smtp_server = cfg['server']['address']
     smtp_port = cfg['server']['port']
     auth = cfg['server']['authentification']
-
-    from_address = cfg['addresses']['from_address']
-    to_address = cfg['addresses']['to_address']
-
     subject = cfg['msg_info']['subject']
+    from_address = cfg['addresses']['from_address']
+
+    #to_address = cfg['addresses']['to_address']
+
+    with open(address_book, 'r') as ymlfile2:
+        addresses = yaml.load(ymlfile2)
+
+    requested_to = addresses[1]
+    print(requested_to)
+    to_address = requested_to['email']
+
 
     with open(text_file, 'r') as txtfile:
         announcement = txtfile.read()
@@ -57,8 +64,9 @@ def main():
 
     config_file = 'config.yml'
     text_file = 'announcement.txt'
+    address_book = 'addressbook.yml'
 
-    username, password, smtp_server, smtp_port, auth, from_address, to_address, subject, announcement = load_config(config_file, text_file)
+    username, password, smtp_server, smtp_port, auth, from_address, to_address, subject, announcement = load_config(config_file, text_file, address_book)
     msg = build_message(announcement, subject, from_address, to_address)
 
     send_message(username, password, smtp_server, smtp_port, auth, msg, from_address, to_address)
