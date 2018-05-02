@@ -17,15 +17,12 @@ def load_config(config_file, text_file, address_book):
     subject = cfg['msg_info']['subject']
     from_address = cfg['addresses']['from_address']
 
-    #to_address = cfg['addresses']['to_address']
-
     with open(address_book, 'r') as ymlfile2:
         addresses = yaml.load(ymlfile2)
 
     requested_to = addresses[1]
     print(requested_to)
     to_address = requested_to['email']
-
 
     with open(text_file, 'r') as txtfile:
         announcement = txtfile.read()
