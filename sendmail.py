@@ -50,7 +50,7 @@ def confirm_sending(msg, announcement):
     print(announcement)
     print('------\n')
 
-    answer = input('If everything is correct, are you ready to send it? (Y/n) ')
+    answer = input('If everything is correct, are you ready to send it? (y/N) ')
     print('\n')
 
     if answer == 'Y':
