@@ -1,12 +1,14 @@
 server:
-    address: smtp.example.com
-    port: 587
-    authentification: True
+  address: smtp.basdebikini.com
+  port: 587
+  authentification: True
 login:
-    username: bobleponge@example.com
-    password: 1234567890123456
+  username: bobleponge@basdebikini.com
+  password: 1234567890123456
 addresses:
-    from_address: bobleponge@example.com
-    to_address: bobleponge@example.com
+  from_name: Bob L'Éponge
+  from_address: bobleponge@basdebikini.com
+  to_name: Bob L'Éponge
+  to_address: bobleponge@basdebikini.com
 msg_info:
-    subject: Test message
+  subject: Test message

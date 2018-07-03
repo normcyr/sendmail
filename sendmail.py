@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import yaml, smtplib
+import email.utils
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
@@ -15,7 +16,9 @@ def load_config(config_file, text_file):
     smtp_port = cfg['server']['port']
     auth = cfg['server']['authentification']
 
+    from_name = cfg['addresses']['from_name']
     from_address = cfg['addresses']['from_address']
+    to_name = cfg['addresses']['to_name']
     to_address = cfg['addresses']['to_address']
 
     subject = cfg['msg_info']['subject']
@@ -23,14 +26,14 @@ def load_config(config_file, text_file):
     with open(text_file, 'r') as txtfile:
         announcement = txtfile.read()
 
-    return(username, password, smtp_server, smtp_port, auth, from_address, to_address, subject, announcement)
+    return(username, password, smtp_server, smtp_port, auth, from_address, from_name, to_address, to_name, subject, announcement)
 
-def build_message(announcement, subject, from_address, to_address):
+def build_message(announcement, subject, from_address, from_name, to_address, to_name):
 
     msg = MIMEMultipart()
     msg['Subject'] = subject
-    msg['From'] = from_address
-    msg['To'] = to_address
+    msg['From'] = email.utils.formataddr((from_name, from_address))
+    msg['To'] = email.utils.formataddr((to_name, to_address))
 
     body = announcement
     msg.attach(MIMEText(body, 'plain'))
@@ -87,8 +90,8 @@ def main():
     config_file = 'config.yml'
     text_file = 'announcement.txt'
 
-    username, password, smtp_server, smtp_port, auth, from_address, to_address, subject, announcement = load_config(config_file, text_file)
-    msg = build_message(announcement, subject, from_address, to_address)
+    username, password, smtp_server, smtp_port, auth, from_address, from_name, to_address, to_name, subject, announcement = load_config(config_file, text_file)
+    msg = build_message(announcement, subject, from_address, from_name, to_address, to_name)
 
     confirmation = confirm_sending(msg, announcement)
 
