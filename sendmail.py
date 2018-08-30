@@ -60,6 +60,8 @@ def confirm_sending(msg, announcement):
         confirmation = True
     elif answer == 'YES':
         confirmation = True
+    elif answer == '':
+        confirmation = True
     else:
         confirmation = False
         print('The message will not be sent.')
