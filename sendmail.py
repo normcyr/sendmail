@@ -33,7 +33,8 @@ def build_message(announcement, subject, from_address, to_address):
     msg['To'] = to_address
 
     body = announcement
-    msg.attach(MIMEText(body, 'plain'))
+    msg.attach(MIMEText(body, 'html'))
+    msg.add_header('Content-Type', 'text')
 
     return(msg)
 
