@@ -3,6 +3,8 @@
 import yaml, smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from pathlib import Path
+
 
 def load_config(config_file, text_file):
 
@@ -87,8 +89,9 @@ def send_message(username, password, smtp_server, smtp_port, auth, msg, from_add
 
 def main():
 
-    config_file = 'config.yml'
-    text_file = 'announcement.txt'
+    basepath = Path(__file__).parent.resolve()
+    config_file = str(Path(basepath / 'config.yml'))
+    text_file = str(Path(basepath / 'announcement.txt'))
 
     username, password, smtp_server, smtp_port, auth, from_address, to_address, subject, announcement = load_config(config_file, text_file)
     msg = build_message(announcement, subject, from_address, to_address)
