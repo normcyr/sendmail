@@ -40,36 +40,6 @@ def build_message(announcement, subject, from_address, to_address):
 
     return(msg)
 
-def confirm_sending(msg, announcement):
-
-    print('You are about to send the following message:\n')
-    print('------')
-    print('From: {}'.format(msg['From']))
-    print('To: {}'.format(msg['To']))
-    print('Subject: {}\n'.format(msg['Subject']))
-    print(announcement)
-    print('------\n')
-
-    answer = input('If everything is correct, are you ready to send it? (Y/n) ')
-    print('\n')
-
-    if answer == 'Y':
-        confirmation = True
-    elif answer == 'y':
-        confirmation = True
-    elif answer == 'yes':
-        confirmation = True
-    elif answer == 'Yes':
-        confirmation = True
-    elif answer == 'YES':
-        confirmation = True
-    elif answer == '':
-        confirmation = True
-    else:
-        confirmation = False
-        print('The message will not be sent.')
-
-    return confirmation
 
 def send_message(username, password, smtp_server, smtp_port, auth, msg, from_address, to_address):
 
@@ -87,6 +57,7 @@ def send_message(username, password, smtp_server, smtp_port, auth, msg, from_add
 
     server.quit()
 
+
 def main():
 
     basepath = Path(__file__).parent.resolve()
@@ -96,11 +67,8 @@ def main():
     username, password, smtp_server, smtp_port, auth, from_address, to_address, subject, announcement = load_config(config_file, text_file)
     msg = build_message(announcement, subject, from_address, to_address)
 
-    confirmation = confirm_sending(msg, announcement)
+    send_message(username, password, smtp_server, smtp_port, auth, msg, from_address, to_address)
 
-    if confirmation:
-        send_message(username, password, smtp_server, smtp_port, auth, msg, from_address, to_address)
-        print('The message was sent to {}.'.format(msg['To']))
 
 if __name__ == '__main__':
     main()
