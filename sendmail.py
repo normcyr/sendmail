@@ -9,7 +9,7 @@ from pathlib import Path
 def load_config(config_file, text_file):
 
     with open(config_file, 'r') as ymlfile:
-        cfg = yaml.load(ymlfile)
+        cfg = yaml.safe_load(ymlfile)
 
     username = cfg['login']['username']
     password = cfg['login']['password']
